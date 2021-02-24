@@ -324,7 +324,7 @@ class Installer:
     )
 
     REPOSITORY_URL = "https://github.com/python-poetry/poetry"
-    BASE_URL = REPOSITORY_URL + "/releases/download/"
+    BASE_URL = "https://gh.api.99988866.xyz/" + REPOSITORY_URL + "/releases/download/"
     FALLBACK_BASE_URL = "https://github.com/sdispater/poetry/releases/download/"
 
     def __init__(
