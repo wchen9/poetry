@@ -68,6 +68,9 @@ except NameError:
 SHELL = os.getenv("SHELL", "")
 WINDOWS = sys.platform.startswith("win") or (sys.platform == "cli" and os.name == "nt")
 GITHUB_PROXY = "https://gh.api.99988866.xyz/"
+USERAGENT = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+    }
 
 FOREGROUND_COLORS = {
     "black": 30,
@@ -577,7 +580,7 @@ class Installer:
         checksum = "poetry-{}-{}.sha256sum".format(version, platform)
 
         try:
-            r = urlopen(GITHUB_PROXY + url + "{}".format(checksum))
+            r = urlopen(url + "{}".format(checksum))
         except HTTPError as e:
             if e.code == 404:
                 raise RuntimeError("Could not find {} file".format(checksum))
@@ -587,7 +590,8 @@ class Installer:
         checksum = r.read().decode()
 
         try:
-            r = urlopen(GITHUB_PROXY + url + "{}".format(name))
+            req = Request(GITHUB_PROXY + url + "{}".format(name), headers=USERAGENT)
+            r = urlopen(req)
         except HTTPError as e:
             if e.code == 404:
                 raise RuntimeError("Could not find {} file".format(name))
