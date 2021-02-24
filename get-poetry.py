@@ -577,7 +577,7 @@ class Installer:
         checksum = "poetry-{}-{}.sha256sum".format(version, platform)
 
         try:
-            r = urlopen(url + "{}".format(checksum))
+            r = urlopen(GITHUB_PROXY + url + "{}".format(checksum))
         except HTTPError as e:
             if e.code == 404:
                 raise RuntimeError("Could not find {} file".format(checksum))
