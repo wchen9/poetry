@@ -67,7 +67,7 @@ except NameError:
 
 SHELL = os.getenv("SHELL", "")
 WINDOWS = sys.platform.startswith("win") or (sys.platform == "cli" and os.name == "nt")
-
+GITHUB_PROXY = "https://gh.api.99988866.xyz/"
 
 FOREGROUND_COLORS = {
     "black": 30,
@@ -324,7 +324,7 @@ class Installer:
     )
 
     REPOSITORY_URL = "https://github.com/python-poetry/poetry"
-    BASE_URL = "https://gh.api.99988866.xyz/" + REPOSITORY_URL + "/releases/download/"
+    BASE_URL = REPOSITORY_URL + "/releases/download/"
     FALLBACK_BASE_URL = "https://github.com/sdispater/poetry/releases/download/"
 
     def __init__(
@@ -587,7 +587,7 @@ class Installer:
         checksum = r.read().decode()
 
         try:
-            r = urlopen(url + "{}".format(name))
+            r = urlopen(GITHUB_PROXY + url + "{}".format(name))
         except HTTPError as e:
             if e.code == 404:
                 raise RuntimeError("Could not find {} file".format(name))
